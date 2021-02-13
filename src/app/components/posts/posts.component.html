@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row mt-4 mb-4">
+    <ng-container *ngIf="posts.length">
+      <input
+        type="text"
+        [(ngModel)]="filterString"
+        placeholder="Filter"
+        class="col-10 offset-1 col-sm-4 offset-sm-4 mb-3"
+      />
+      <h3 class="col-12 mt-3 text-center">UserId {{ userId }} Posts</h3>
+      <div
+        class="card col-10 offset-1 offset-sm-0 col-sm-12 mt-3 mb-3 shadow"
+        *ngFor="let post of posts | filter: 'title':filterString"
+      >
+        <div class="card-body">
+          <h5 class="card-title">{{ post.title }}</h5>
+          <p class="card-text">
+            {{ post.body }}
+          </p>
+          <button class="btn btn-primary" (click)="goToPost(post.id)">
+            Go to Post
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <div
+      class="col-10 offset-1 text-center border border-danger text-danger"
+      *ngIf="errorMessage"
+    >
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>

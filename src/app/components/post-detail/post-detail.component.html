@@ -1,0 +1,78 @@
+<div class="container">
+  <ng-container *ngIf="post">
+    <div class="row mt-4 mb-4">
+      <input
+        type="text"
+        [(ngModel)]="filterString"
+        placeholder="Search"
+        class="col-10 offset-1 col-sm-4 offset-sm-4 mb-3"
+      />
+      <div class="col-12 mt-sm-5 mt-3">
+        <h3>Title:</h3>
+        <p
+          appHighlight
+          content="{{ post.title }}"
+          [searchTerm]="filterString"
+          [caseSensitive]="false"
+        ></p>
+      </div>
+
+      <div class="col-12">
+        <h3>Body:</h3>
+        <p
+          appHighlight
+          content="{{ post.body }}"
+          [searchTerm]="filterString"
+          [caseSensitive]="false"
+        ></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6 text-center">
+        <span class="text-primary" role="button" (click)="seeComments()">
+          Comments
+        </span>
+      </div>
+      <div class="col-6 text-center">
+        <button class="btn btn-primary" (click)="deletePost()">Delete</button>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="comments.length">
+    <hr />
+    <div class="row mb-4">
+      <div
+        class="media shadow mt-2 mb-2 col-sm-12 offset-sm-0 offset-1 col-10 pt-3 pb-3"
+        *ngFor="let comment of comments"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="50"
+          height="50"
+          fill="currentColor"
+          class="bi bi-person-circle align-self-center mr-3"
+          viewBox="0 0 16 16"
+        >
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+          <path
+            fill-rule="evenodd"
+            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+          />
+        </svg>
+        <div class="media-body">
+          <h5 class="mt-0">{{ comment.name }}</h5>
+          <small class="text-info">{{ comment.email }}</small>
+          <p class="mb-0">
+            {{ comment.body }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div class="row mt-4 mb-4" *ngIf="errorMessage">
+    <div class="col-10 offset-1 text-center border border-danger text-danger">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
